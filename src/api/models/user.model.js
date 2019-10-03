@@ -11,8 +11,8 @@ const { env, jwtSecret, jwtExpirationInterval } = require('../../config/vars');
 /**
 * User Roles
 */
-const roles = ['user', 'admin'];
-
+const roles = ['user', 'admin','tester'];
+const _status = ['active', 'inactive'];
 /**
  * User Schema
  * @private
@@ -38,10 +38,6 @@ const userSchema = new mongoose.Schema({
     index: true,
     trim: true,
   },
-  services: {
-    facebook: String,
-    google: String,
-  },
   role: {
     type: String,
     enum: roles,
@@ -51,6 +47,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  position: {
+    type: String
+  },
+  status: {
+    type: String,
+    enum: _status,
+    default: 'active',
+  }
+
 }, {
   timestamps: true,
 });
@@ -210,7 +215,7 @@ userSchema.statics = {
         stack: error.stack,
       });
     }
-    return error;
+    return error;const _status = ['active', 'inactive'];
   },
 
   async oAuthLogin({
