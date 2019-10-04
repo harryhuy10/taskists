@@ -37,7 +37,7 @@ const projectSchema = new mongoose.Schema({
       type: Number
   },
   listTask:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }],
-
+  createdBy:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 }, {
   timestamps: true,
 });
