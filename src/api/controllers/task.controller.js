@@ -17,5 +17,11 @@ exports.create = async (req, res, next) => {
         next();
       }
   };
+exports.get = (req, res) => {
+    Task.find({assignTo:req.user._id}).then((task) => {
+        return res.json({data:task});
+    })
+};
+
 
  
