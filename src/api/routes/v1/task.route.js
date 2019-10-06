@@ -20,7 +20,7 @@ router
    * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
    * @apiError (Forbidden 403)     Forbidden     Only users can access the data
    */
-  .get(authorize())
+  .get(authorize(), controller.get)
   /**
    * @api {post} v1/users Create project
    * @apiDescription Create a new project
@@ -37,6 +37,9 @@ router
    * @apiError (Unauthorized 401)  Unauthorized     Only authenticated users can create the data
    * @apiError (Forbidden 403)     Forbidden        Only admins can create the data
    */
-  .post(authorize(ADMIN), controller.create);
-
+  .post(authorize(), controller.create);
+router
+    .route('/:id')
+    .put(authorize(),controller.update)
+    .delete(authorize(),controller.remove);
 module.exports = router;
