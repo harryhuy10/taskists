@@ -1,14 +1,13 @@
 const httpStatus = require('http-status');
-const { omit } = require('lodash');
+// const { omit } = require('lodash');
 const Project = require('../models/project.model.js');
 const mongoose = require('mongoose');
+
 exports.create = async (req, res, next) => {
     try {
-        
         let project = new Project(req.body);
-       
         if (typeof req.body.listUser !== 'undefined') {
-            project.listUser = project.listUser.map((q) => mongoose.Types.ObjectId(q))
+            project.listUser = project.listUser.map((q) => mongoose.Types.ObjectId(q));
           }
         project.createdBy = mongoose.Types.ObjectId(req.user._id)
         const savedProject = await project.save();
@@ -18,7 +17,8 @@ exports.create = async (req, res, next) => {
         next();
       }
   };
-  exports.get = (req, res) => {
+
+exports.get = (req, res) => {
         Project.find({listUser:req.user._id}).populate({
           path:"createdBy",
           select:"email name"
